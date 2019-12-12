@@ -17,6 +17,7 @@ namespace SortingForm
     {
         public TestCase testCase { get;}
         public bool _IsHighlighted;
+        public event EventHandler ClickToChangeData;
         public event EventHandler UnsortedDataUpdated;
         public event EventHandler HighlightEvent;
 
@@ -73,6 +74,7 @@ namespace SortingForm
 
         private void Button_Test_Click(object sender, EventArgs e)
         {
+
             if (radioButton_CompletlyRandom.Checked)
             {
                 for (int i = 0; i < 10004; i++)
@@ -95,15 +97,13 @@ namespace SortingForm
         private void Panel_TestDetails_MouseDown(object sender, MouseEventArgs e)
         {
 
-            this.BackgroundImage = SortingForm.Properties.Resources.orange;
-
+            this.HighlightEvent(this, e);
 
             IsHighlighted = true;
 
-            this.HighlightEvent(this, e);
+            this.BackgroundImage = SortingForm.Properties.Resources.orange;
 
-
-
+            this.ClickToChangeData(this, e);
 
 
 
@@ -112,6 +112,12 @@ namespace SortingForm
         private void Panel_TestDetails_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void Button_DeleteTestCase_Click(object sender, EventArgs e)
+        {
+
+            this.Hide();
         }
     }
 }

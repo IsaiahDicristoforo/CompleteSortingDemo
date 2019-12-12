@@ -73,6 +73,7 @@
             this.Button_DeleteTestCase.TabIndex = 1;
             this.Button_DeleteTestCase.Text = "Delete Test Case";
             this.Button_DeleteTestCase.UseVisualStyleBackColor = true;
+            this.Button_DeleteTestCase.Click += new System.EventHandler(this.Button_DeleteTestCase_Click);
             // 
             // panel_TestDetails
             // 

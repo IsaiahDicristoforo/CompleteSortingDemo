@@ -1,13 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Syncfusion.Windows.Forms.Tools;
 
 namespace SortingForm
 {
@@ -24,19 +17,26 @@ namespace SortingForm
         private void button_AddNewTestCase_Click(object sender, EventArgs e)
         {
             NumberDataSet set = new NumberDataSet();
+            set.UnsortedDataUpdated += new EventHandler(UserControl_ButtonClick);
+            set.HighlightEvent += new EventHandler(UnselectAllTestCases);
+            set.ClickToChangeData += new EventHandler(UpdateData);
             flowLayoutPanel1.Controls.Add(set);
             flowLayoutPanel1.ScrollControlIntoView(flowLayoutPanel1.Controls[flowLayoutPanel1.Controls.Count - 1]);
             dataSets.Add(set);
             UnselectAllTestCases(sender,e);
-            set.HighlightEvent += new EventHandler(UnselectAllTestCases);
-            set.UnsortedDataUpdated += new EventHandler(UserControl_ButtonClick);
+            set.IsHighlighted = true;
+            UpdateUnsortedViews();
+        }
+
+        public void UpdateData(object o, EventArgs e)
+        {
+            UpdateUnsortedViews();
 
         }
         protected void UserControl_ButtonClick(object sender, EventArgs e)
         {
-
+            
             UpdateUnsortedViews();
-
         }
 
         private void UpdateUnsortedViews()
@@ -82,7 +82,6 @@ namespace SortingForm
                         }
                     }
 
-
                 }
                 else
                 {
@@ -108,15 +107,8 @@ namespace SortingForm
                 {
                     dataSets[i].IsHighlighted = false;
                 }
-                else
-                {
-                    dataSets[i].IsHighlighted = true;
-                }
+               
             }
-
-           
-
-
 
         }
 
